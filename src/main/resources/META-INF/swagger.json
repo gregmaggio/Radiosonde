@@ -1,0 +1,324 @@
+{
+	"swagger" : "2.0",
+	"info" : {
+		"description" : "Radiosonde API",
+		"version" : "1.0",
+		"title" : "Radiosonde Service",
+		"license" : {
+			"name" : "Apache License Version 2.0"
+		}
+	},
+	"host" : "localhost:8081",
+	"basePath" : "/Radiosonde",
+	"tags" : [{
+			"name" : "radiosonde-controller",
+			"description" : "Radiosonde Controller"
+		}
+	],
+	"paths" : {
+		"/api/stations" : {
+			"get" : {
+				"tags" : ["radiosonde-controller"],
+				"summary" : "stations",
+				"operationId" : "stations",
+				"consumes" : ["application/json"],
+				"produces" : ["*/*"],
+				"responses" : {
+					"200" : {
+						"description" : "OK",
+						"schema" : {
+							"type" : "array",
+							"items" : {
+								"$ref" : "#/definitions/StationDTO"
+							}
+						}
+					},
+					"401" : {
+						"description" : "Unauthorized"
+					},
+					"403" : {
+						"description" : "Forbidden"
+					},
+					"404" : {
+						"description" : "Not Found"
+					}
+				}
+			}
+		},
+		"/api/station/{id}" : {
+			"get" : {
+				"tags" : ["radiosonde-controller"],
+				"summary" : "station",
+				"operationId" : "station",
+				"consumes" : ["application/json"],
+				"produces" : ["*/*"],
+				"parameters" : [{
+						"name" : "id",
+						"in" : "path",
+						"description" : "id",
+						"required" : true,
+						"type" : "string"
+					}
+				],
+				"responses" : {
+					"200" : {
+						"description" : "OK",
+						"schema" : {
+							"$ref" : "#/definitions/StationDTO"
+						}
+					},
+					"401" : {
+						"description" : "Unauthorized"
+					},
+					"403" : {
+						"description" : "Forbidden"
+					},
+					"404" : {
+						"description" : "Not Found"
+					}
+				}
+			}
+		},
+		"/api/radiosondes/{stationId}" : {
+			"get" : {
+				"tags" : ["radiosonde-controller"],
+				"summary" : "radiosondes",
+				"operationId" : "radiosondes",
+				"consumes" : ["application/json"],
+				"produces" : ["*/*"],
+				"parameters" : [{
+						"name" : "stationId",
+						"in" : "path",
+						"description" : "stationId",
+						"required" : true,
+						"type" : "string"
+					}
+				],
+				"responses" : {
+					"200" : {
+						"description" : "OK",
+						"schema" : {
+							"type" : "array",
+							"items" : {
+								"$ref" : "#/definitions/RadiosondeDTO"
+							}
+						}
+					},
+					"401" : {
+						"description" : "Unauthorized"
+					},
+					"403" : {
+						"description" : "Forbidden"
+					},
+					"404" : {
+						"description" : "Not Found"
+					}
+				}
+			}
+		},
+		"/api/radiosonde/{stationId}/{year}/{month}/{day}/{hour}" : {
+			"get" : {
+				"tags" : ["radiosonde-controller"],
+				"summary" : "radiosondes",
+				"operationId" : "radiosondes",
+				"consumes" : ["application/json"],
+				"produces" : ["*/*"],
+				"parameters" : [{
+						"name" : "stationId",
+						"in" : "path",
+						"description" : "stationId",
+						"required" : true,
+						"type" : "string"
+					}, {
+						"name" : "year",
+						"in" : "path",
+						"description" : "year",
+						"required" : true,
+						"type" : "string"
+					}, {
+						"name" : "month",
+						"in" : "path",
+						"description" : "month",
+						"required" : true,
+						"type" : "string"
+					}, {
+						"name" : "day",
+						"in" : "path",
+						"description" : "day",
+						"required" : true,
+						"type" : "string"
+					}, {
+						"name" : "hour",
+						"in" : "path",
+						"description" : "hour",
+						"required" : true,
+						"type" : "string"
+					}
+				],
+				"responses" : {
+					"200" : {
+						"description" : "OK",
+						"schema" : {
+							"type" : "array",
+							"items" : {
+								"$ref" : "#/definitions/RadiosondeRecordDTO"
+							}
+						}
+					},
+					"401" : {
+						"description" : "Unauthorized"
+					},
+					"403" : {
+						"description" : "Forbidden"
+					},
+					"404" : {
+						"description" : "Not Found"
+					}
+				}
+			}
+		}
+	},
+	"definitions" : {
+		"StationDTO" : {
+			"type" : "object",
+			"properties" : {
+				"id" : {
+					"type" : "string"
+				},
+				"latitude" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"longitude" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"elevation" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"state" : {
+					"type" : "string"
+				},
+				"name" : {
+					"type" : "string"
+				},
+				"firstYear" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"lastYear" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"observations" : {
+					"type" : "number",
+					"format" : "integer"
+				}
+			}
+		},
+		"RadiosondeDTO" : {
+			"type" : "object",
+			"properties" : {
+				"id" : {
+					"type" : "string"
+				},
+				"year" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"month" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"day" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"hour" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"releaseTime" : {
+					"type" : "string"
+				},
+				"recordCount" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"pressureSource" : {
+					"type" : "string"
+				},
+				"nonPressureSource" : {
+					"type" : "string"
+				},
+				"latitude" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"longitude" : {
+					"type" : "number",
+					"format" : "integer"
+				}
+			}
+		},
+		"RadiosondeRecordDTO" : {
+			"type" : "object",
+			"properties" : {
+				"recordNo" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"majorLevelType" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"minorLevelType" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"elapsedTime" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"pressure" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"pressureFlag" : {
+					"type" : "string"
+				},
+				"geopotentialHeight" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"geopotentialHeightFlag" : {
+					"type" : "string"
+				},
+				"temperature" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"temperatureFlag" : {
+					"type" : "string"
+				},
+				"relativeHumidity" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"dewpoint" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"windDirection" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"windSpeed" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+			}
+		}
+	}
+}
